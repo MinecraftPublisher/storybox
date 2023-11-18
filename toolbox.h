@@ -27,16 +27,19 @@ typedef char* string;
 
 struct termios old_tio, new_tio;
 
-void isBackspaceKeyPressed();
+void isAnyKeyPressed();
 
 int chars = 0;
+char pressedKey = 0;
 
 void handleSignal(int signal) {
     if (signal == SIGUSR1 && chars == 0) chars = 10;
-    isBackspaceKeyPressed();
+    isAnyKeyPressed();
 }
 
-void isBackspaceKeyPressed() {
+/**
+*/
+void isAnyKeyPressed() {
     signal(SIGUSR1, handleSignal);
     signal(0, handleSignal);
 
@@ -44,11 +47,12 @@ void isBackspaceKeyPressed() {
     if (pid < 0) {
         // Fork failed.
         usleep(500000);
-        isBackspaceKeyPressed();
+        isAnyKeyPressed();
     } else if (pid == 0) {
         // Child process.
         char c;
         read(STDIN_FILENO, &c, 1);
+        pressedKey = c;
         kill(getppid(), SIGUSR1);
         _exit(0);
     }
@@ -98,5 +102,6 @@ void __init_storybox_tools() {
     new_tio.c_lflag &= (~ICANON & ~ECHO);       // Disable canonical mode and echo.
     tcsetattr(STDIN_FILENO, TCSANOW, &new_tio); // Set the new settings.
 
-    isBackspaceKeyPressed();
+    // run the keypress detector daemon
+    isAnyKeyPressed();
 }
