@@ -90,6 +90,8 @@ void dotsleep(int time) {
         chars--;
 }
 
+bool typewriter_newline = true;
+
 void typewriter(string x) {
     int i = 0;
     while (x[ i ] != '\0') {
@@ -110,9 +112,10 @@ void typewriter(string x) {
         i++;
     }
 
-    dotsleep(NEWLINE);
-
-    printf("\n");
+    if (typewriter_newline) {
+        dotsleep(NEWLINE);
+        printf("\n");
+    }
     fflush(stdout);
 
     dotsleep(NEWLINE / 2);
@@ -162,12 +165,15 @@ int choose(int size, string *cs) {
 
     int SIZE = 0;
 
+    typewriter_newline = false;
     for (int i = 0; i < size; i++) {
-        int x = printf("\n[%c] %s", i == choice ? 'x' : ' ', cs[ i ]);
+        int x = printf("\n[%c] ", i == choice ? 'x' : ' ');
+        typewriter(cs[ i ]);
         SIZE += x;
 
         fflush(stdout);
     }
+    typewriter_newline = true;
 
     pressedKey = 0;
     while (pressedKey != '\n') {
@@ -208,4 +214,24 @@ void __init_storybox_tools() {
     // run the keypress detector daemon
     noncannon();
     isAnyKeyPressed();
+}
+
+void clearscreen() {
+    // ----------------- CLEAR SCREEN -----------------
+#ifdef _WIN32
+    system("cls");
+#endif
+
+#ifdef WIN32
+    system("cls");
+#endif
+
+#ifdef __unix__
+    system("clear");
+#endif
+
+#ifdef __APPLE__
+    system("clear");
+#endif
+    // ----------------- CLEAR SCREEN -----------------
 }
