@@ -1,11 +1,11 @@
-#include "toolbox.h"
+#include "storybox.h"
 
 bool has_intro = false;
 
 void bye() {
     clearscreen();
     usleep(500 * 1000);
-    typewriter("Thanks for testing me.\n");
+    typewriter("Thanks for testing me.\n\n");
 }
 
 int main() {
