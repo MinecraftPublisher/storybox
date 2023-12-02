@@ -41,6 +41,14 @@ body {
     }
 }
 
+@keyframes pointers {
+    from {
+        pointer-events: none !important;
+    } to {
+        pointer-events: initial !important;
+    }
+}
+
 player {
     position: fixed;
     top: 2rem;
@@ -58,6 +66,8 @@ player {
     type {
         &[played="1"] {
             buttons {
+                animation: 1s pointers;
+                pointer-events: initial !important;
                 opacity: 1;
             }
         }
@@ -71,6 +81,7 @@ player {
         buttons {
             padding-top: 5rem !important;
             opacity: 0;
+            pointer-events: none !important;
             display: block;
 
             transition: 500ms opacity 500ms;

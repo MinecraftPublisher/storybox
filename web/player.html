@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{{GAME_TITLE}}</title>
+        <title>Sample game thing</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
@@ -39,6 +39,10 @@
         <style class="scss">html { background-color: #000; } body { display: none; } body[loaded] { display: initial; }</style>
 
         <script>
+            if('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+            }
+
             HTMLElement.prototype.attr = function(attribute) { return this.getAttribute(attribute) }
             HTMLElement.prototype.q = function(query) { return this.querySelector(query) }
             HTMLElement.prototype.qs = function(query) { return this.querySelectorAll(query) }
