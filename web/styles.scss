@@ -1,0 +1,155 @@
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+:root {
+    --max-w: min(500px, calc(100vw - 30px));
+}
+
+html {
+    font-family: 'Anonymous Pro', monospace;
+
+    background-color: #000;
+    color: #fff;
+    font-size: 1rem;
+
+    display: block;
+    position: fixed;
+}
+
+files, files *, files > * {
+    display: none !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+body {
+    display: block !important;
+    width: var(--max-w) !important;
+    height: 100vh;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes flicker {
+    from {
+        opacity: 1;
+    } 50% {
+        opacity: 0.8;
+    } to {
+        opacity: 1;
+    }
+}
+
+player {
+    position: fixed;
+    top: 2rem;
+    left: 0;
+
+    width: var(--max-w) !important;
+    max-width: var(--max-w) !important;
+    display: block;
+    height: 100vh;
+    /* margin: auto; */
+    /* overflow: scroll; */
+    /* padding: 3rem; */
+    padding-top: 0;
+
+    type {
+        &[played="1"] {
+            buttons {
+                opacity: 1;
+            }
+        }
+
+        text {
+            cursor: pointer;
+            font-size: 2rem;
+            animation: 8s flicker ease-in-out infinite;
+        }
+
+        buttons {
+            padding-top: 5rem !important;
+            opacity: 0;
+            display: block;
+
+            transition: 500ms opacity 500ms;
+
+            .jump {
+                font-family: 'Anonymous Pro', monospace;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                color: rgb(90, 200, 255);
+                background-color: rgb(0, 0, 0);
+                font-size: 1.5rem;
+                padding: 5px;
+                margin-bottom: 5px;
+                display: table;
+
+                transition: 250ms background-color 250ms, 250ms color;
+
+                &::before {
+                    content: '> ';
+                }
+
+                &:hover {
+                    background-color: rgb(90, 200, 255);
+                    color: rgb(0, 0, 0);
+                }
+
+                &:focus {
+                    background-color: rgb(90, 255, 200);
+                    color: rgb(0, 0, 0);
+                }
+            }
+
+            .button {
+                font-family: 'Anonymous Pro', monospace;
+
+                font-size: 1.5rem;
+                display: block;
+                margin: 1rem 0;
+                width: 100% !important;
+                min-height: 5rem;
+
+                border: 1px solid #889;
+                color: 000;
+
+                outline: 1px solid #fff;
+
+                background: linear-gradient(317deg, rgba(83,83,100,1), rgba(175,177,189,1));
+                transition: 2s background, 0.5s color;
+
+                &:focus {
+                    border: 1px solid #889;
+                    color: #ddd;
+                    outline: 1px solid #fff;
+                    background: linear-gradient(100deg, rgba(135,137,149,1), rgba(43,43,60,1));
+                }
+            }
+        }
+
+        cursor {
+            border-right: 2px solid rgba(255,255,255,.75);
+            height: 2rem !important;
+            margin: 0;
+            padding: 0;
+            padding-left: 0px;
+            animation: blinkTextCursor 800ms infinite normal;
+        }
+    }
+}
+
+@keyframes typewriter {
+    from{width: 0;}
+    to{width: 20em;}
+}
+
+@keyframes blinkTextCursor {
+    from {
+        border-right-color: rgba(255,255,255,.75);
+    } to {
+        border-right-color: rgba(255,255,255,.25);
+    }
+}

@@ -1,4 +1,56 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>{{GAME_TITLE}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <player></player>
+        <files>
+            <file name="main">
+                <type content="You head in to a room with two doors." played=0>
+                    <text></text>
+                    <buttons>
+                        <button class="jump" target="leftdoor">Left door</button>
+                        <button class="jump" target="rightdoor">Right door</button>
+                    </buttons>
+                </type>
+            </file>
+
+            <file name="leftdoor">
+                <type content="You open the left door. It's an empty room." played=0>
+                    <text></text>
+                    <buttons>
+                        <button target="main" class="jump">Head back out</button>
+                    </buttons>
+                </type>
+            </file>
+
+            <file name="rightdoor">
+                <type content="You open the right door. It's an empty room." played=0>
+                    <text></text>
+                    <buttons>
+                        <button target="main" class="jump">Head back out</button>
+                    </buttons>
+                </type>
+            </file>
+        </files>
+
+        <style class="scss">html { background-color: #000; } body { display: none; } body[loaded] { display: initial; }</style>
+
+        <script>
+            HTMLElement.prototype.attr = function(attribute) { return this.getAttribute(attribute) }
+            HTMLElement.prototype.q = function(query) { return this.querySelector(query) }
+            HTMLElement.prototype.qs = function(query) { return this.querySelectorAll(query) }
+        </script>
+        <script type="module">
+            HTMLElement.prototype.attr = function(attribute) { return this.getAttribute(attribute) }
+            HTMLElement.prototype.q = function(query) { return this.querySelector(query) }
+            HTMLElement.prototype.qs = function(query) { return this.querySelectorAll(query) }
+
+            import './styles.js'
+            import './filesystem.js'
+            import './typewriter.js'
+        </script>
+    </body>
+</html>
